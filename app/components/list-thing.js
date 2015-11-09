@@ -36,6 +36,21 @@ function generateRandomArray(count) {
   return output;
 }
 
+var count = 0;
+function stable(key) {
+  let stableArrayName = `stable-array-${count++}`;
+
+  return Ember.computed(key + '.[]', function() {
+    if (this[stableArrayName] === undefined) {
+      this[stableArrayName] = [];
+    }
+
+    var stableArray = this[stableArrayName];
+    syncArray(stableArray, this.get('data'));
+    return stableArray;
+  });
+}
+
 export default Ember.Component.extend({
   init() {
     this._super(...arguments);
@@ -44,6 +59,8 @@ export default Ember.Component.extend({
     this.set('data', generateRandomArray(1000));
     this._stable = []; // stable array
   },
+
+  // stable: stable('data'),
 
   stable: Ember.computed('data', function() {
     syncArray(this._stable, this.get('data'));
