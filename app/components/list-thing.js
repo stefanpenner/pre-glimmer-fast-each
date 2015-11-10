@@ -38,7 +38,7 @@ function generateRandomArray(count) {
 
 var count = 0;
 function stable(key) {
-  let stableArrayName = `stable-array-${count++}`;
+  let stableArrayName = `_stable-array-${count++}`;
 
   return Ember.computed(key + '.[]', function() {
     if (this[stableArrayName] === undefined) {
@@ -57,15 +57,9 @@ export default Ember.Component.extend({
     this.set('insertionCount', 0);
     this.set('columns', [1,2,3,4,5]);
     this.set('data', generateRandomArray(1000));
-    this._stable = []; // stable array
   },
 
-  // stable: stable('data'),
-
-  stable: Ember.computed('data', function() {
-    syncArray(this._stable, this.get('data'));
-    return this._stable;
-  }),
+  stable: stable('data'),
 
   actions: {
     didInsert() {
