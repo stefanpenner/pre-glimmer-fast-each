@@ -1,14 +1,14 @@
 componentInsertionCount: {{insertionCount}}
 <table>
-<tbody>
-{{#each row in stable}}
-<tr>
-  {{#each column in columns}}
-    <td>{{my-component name=row.name did-insert="didInsert"}}</td>
+  <tbody>
+  {{#each row in stable}}
+    <tr>
+      {{#each column in columns}}
+        <td>{{my-component name=row.name did-insert="didInsert"}}</td>
+      {{/each}}
+    </tr>
   {{/each}}
-</tr>
-{{/each}}
-</tbody>
+  </tbody>
 </table>
 
 <button {{action "newData"}}>
